@@ -8,7 +8,7 @@ const InputBox = ({name,children,onChange,value}) => {
     name={name}
     id={name}
     value={value}
-    className="peer border-2 border-gray-400 outline-none pt-4 pb-1 pl-2 rounded-sm w-full focus:border-blue-500 text-gray-800"
+    className="peer border-2 border-gray-400 outline-none pl-2 pt-4 py-1.5 rounded-sm w-full focus:border-blue-500 text-gray-800"
     onChange={(e) => onChange(e)}
     required
   />

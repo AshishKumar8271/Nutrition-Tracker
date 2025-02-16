@@ -7,9 +7,33 @@ import {
   CLEAR_ITEMS,
   DELETE_ITEM,
   TOTAL_NUTRITIONS,
-} from "./actions";
+} from "../actions/actions";
 
-export const reducer = (state, action) => {
+const itemsInStorage = JSON.parse(localStorage.getItem('items'));
+
+const calculateTotals = itemsInStorage.reduce(
+  (nutritions, item) => {
+    nutritions.totalCalories += item.calories * item.quantity;
+    nutritions.totalProtein += item.protein * item.quantity;
+    nutritions.totalCarbs += item.carbs * item.quantity;
+    nutritions.totalFat += item.fat * item.quantity;
+    return nutritions;
+  },
+  {
+    totalCalories: 0,
+    totalProtein: 0,
+    totalCarbs: 0,
+    totalFat: 0,
+  }
+);
+
+const initialState = {
+  items: itemsInStorage,
+  itemToEdit: null,
+  ...calculateTotals,
+};
+
+const nutritionReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return {
@@ -47,16 +71,15 @@ export const reducer = (state, action) => {
     case DEC_QUANTITY: {
       return {
         ...state,
-        items: state.items
-          .map((item) => {
-            if (item.id === action.payload && item.quantity > 1) {
-              return {
-                ...item,
-                quantity: item.quantity - 1,
-              };
-            }
-            return item;
-          })
+        items: state.items.map((item) => {
+          if (item.id === action.payload && item.quantity > 1) {
+            return {
+              ...item,
+              quantity: item.quantity - 1,
+            };
+          }
+          return item;
+        }),
       };
     }
 
@@ -118,3 +141,5 @@ export const reducer = (state, action) => {
       return state;
   }
 };
+
+export default nutritionReducer;

@@ -1,13 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css';
-import FitContextProvider from './Context/FitContext.jsx';
+import { Provider } from 'react-redux';
+import store from './store.js';
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <FitContextProvider>
+    <Provider store={store}>
       <App />
-    </FitContextProvider>
+    </Provider>
   </StrictMode>,
 )

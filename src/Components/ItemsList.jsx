@@ -1,5 +1,5 @@
 import React from "react";
-import { useFitContext } from "../Context/FitContext";
+import { useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Navigation } from "swiper/modules";
@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import ItemCard from "./ItemCard";
 
 const ItemsList = () => {
-  const { items } = useFitContext();
+  const {items} = useSelector((state) => state.nutrition);
 
   if(items.length === 0) {
     return <div className="mt-4 text-center">No Items right now</div>
